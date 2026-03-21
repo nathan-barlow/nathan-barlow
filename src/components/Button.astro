@@ -1,0 +1,59 @@
+---
+import Arrow from "./Arrow.astro";
+
+const { href, variant = "default", arrow = false } = Astro.props;
+---
+
+<a
+    class={`button button--${variant}${arrow ? " button--arrow" : ""}`}
+    href={href}
+>
+    <slot />
+    {arrow && <Arrow />}
+</a>
+
+<style lang="scss">
+    .button {
+        --padding: 0.5em;
+
+        padding: calc(var(--padding) + 2px);
+        color: var(--color-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        max-width: max-content;
+        border-radius: 3px;
+        transition:
+            opacity var(--transition),
+            transform 0.25s ease-out;
+
+        &--arrow {
+            padding-right: 0;
+        }
+
+        &:not(.button--arrow):hover {
+            opacity: 0.9;
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+
+        &--minimal {
+            padding: calc(var(--padding) + 2px) 0;
+            background: none;
+            color: var(--color-primary);
+        }
+
+        &--outline {
+            padding: var(--padding);
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        &--primary {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+    }
+</style>

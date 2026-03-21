@@ -1,0 +1,77 @@
+---
+import Arrow from "./Arrow.astro";
+
+const { arrow = true } = Astro.props;
+---
+
+<article class="card">
+    <slot />
+    {
+        arrow && (
+            <Arrow
+                color="var(--color-gray-25)"
+                hoverColor="var(--color-primary)"
+            />
+        )
+    }
+</article>
+
+<style lang="scss" is:global>
+    .card {
+        position: relative;
+        padding: var(--spacing-30);
+        border-radius: 0.375rem;
+        corner-shape: squircle;
+        border: 1px solid var(--color-gray-10);
+        background-color: var(--color-white);
+        // box-shadow: 0 0.5rem 1rem -0.25rem rgba(0, 0, 0, 0.05);
+
+        > *:first-child {
+            margin-top: 0;
+        }
+
+        > *:nth-last-child(2),
+        > *:last-child {
+            margin-bottom: 0;
+        }
+
+        .arrow {
+            position: absolute;
+            bottom: var(--spacing-30);
+            right: calc(var(--spacing-30) * 2 / 3);
+        }
+    }
+
+    .card:has(a.card-link) {
+        transition:
+            background-color var(--transition),
+            border-color var(--transition),
+            transform 0.25s ease-out;
+
+        a.card-link::after {
+            content: "";
+            position: absolute;
+            inset: 0 0 0 0;
+            z-index: 1;
+        }
+
+        a:not(.card-link) {
+            position: relative;
+            z-index: 2;
+        }
+
+        &:has(a.card-link:hover) {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary-50);
+            backdrop-filter: blur(3) saturate(3);
+        }
+
+        &:has(a.card-link:active) {
+            transform: scale(0.99);
+        }
+    }
+
+    :where(.card) a {
+        color: var(--color-text);
+    }
+</style>

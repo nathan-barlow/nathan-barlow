@@ -1,0 +1,42 @@
+---
+
+---
+
+<header>
+    <a href="/" class="logo" title="Home">
+        <figure>
+            <img
+                src="/src/assets/logo.png"
+                alt="Logo with letters N B between code brackets"
+            />
+        </figure>
+    </a>
+
+    <nav>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+    </nav>
+</header>
+
+<style lang="scss">
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--gutter);
+    }
+
+    .logo {
+        figure {
+            padding: 0;
+            margin: 0;
+            line-height: 0;
+        }
+
+        img {
+            height: 100%;
+            width: 50px;
+            object-fit: cover;
+        }
+    }
+</style>

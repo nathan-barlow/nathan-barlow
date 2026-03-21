@@ -1,23 +1,98 @@
+---
+import "../styles/global.scss";
+import Header from "../layouts/Header.astro";
+import Footer from "./Footer.astro";
+
+const { title = "Nate Barlow" } = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/favicon/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap"
+            rel="stylesheet"
+        />
+
+        <meta name="generator" content={Astro.generator} />
+
+        <title>{title}</title>
+    </head>
+    <body>
+        <Header />
+
+        <main>
+            <slot />
+        </main>
+
+        <Footer />
+    </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+    :global(#pointer) {
+        border-radius: 100%;
+        opacity: 0.4;
+        position: fixed;
+        top: -12.5vw;
+        left: -12.5vw;
+        transform: translate(-50%, -50%);
+        transition: translate 500ms ease-out;
+        z-index: -1;
+        display: block;
+        height: 25vw;
+        width: 25vw;
+        background-color: var(--color-primary-100);
+        filter: blur(68px);
+    }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.body.insertAdjacentHTML(
+            "afterbegin",
+            "<div id='pointer'></div>",
+        );
+
+        const blob = document.getElementById("pointer");
+        const position = { left: "0", top: "0" };
+
+        document.addEventListener("mousemove", (event) => {
+            position.left = event.clientX + "px";
+            position.top = event.clientY + "px";
+
+            blob &&
+                blob.animate(position, {
+                    duration: 1000,
+                    fill: "forwards",
+                    easing: "cubic-bezier(.8,0,.2,1)",
+                });
+        });
+    });
+</script>

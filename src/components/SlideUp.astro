@@ -1,0 +1,85 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"h1"> {
+    tag?: string;
+    parts?: string;
+    delay?: number;
+}
+
+const { tag = "span", parts, delay = 0.05 } = Astro.props;
+const words = parts ? parts.split(" ") : false;
+const Tag = tag as any;
+---
+
+<Tag class="slide-up">
+    {
+        words ? (
+            words.map((p, index) => (
+                <span
+                    class="slide-up__part"
+                    style={{ animationDelay: `${index * delay}s` }}
+                >
+                    {p}
+                </span>
+            ))
+        ) : (
+            <span
+                class="slide-up__part"
+                style={{ animationDelay: `${delay}s` }}
+            >
+                <slot />
+            </span>
+        )
+    }
+</Tag>
+
+<style>
+    .slide-up {
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25ch;
+
+        &.is-visible .slide-up__part {
+            animation: slide-up 1s var(--transition-func) forwards;
+        }
+    }
+
+    .slide-up__part {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(1em);
+    }
+
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(1em);
+        }
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+</style>
+
+<script>
+    const observerOptions = {
+        threshold: 0.25, // Trigger when 25% of the element is visible
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                // Optional: Stop observing once it's animated
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Grab all elements with the 'js-observe' class
+    const targets = document.querySelectorAll(".slide-up");
+    targets.forEach((target) => observer.observe(target));
+</script>
