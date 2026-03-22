@@ -73,6 +73,26 @@ const { title = "Nate Barlow" } = Astro.props;
     }
 </style>
 
+<script is:inline>
+    const STORAGE_KEY = "natebarlow_theme";
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+        try {
+            const config = JSON.parse(saved);
+            if (config.colorScheme) {
+                document.documentElement.style.colorScheme = config.colorScheme;
+            }
+            if (config.hue) {
+                document.documentElement.style.setProperty(
+                    "--primary-hue",
+                    config.hue,
+                );
+            }
+        } catch (e) {}
+    }
+</script>
+
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         document.body.insertAdjacentHTML(

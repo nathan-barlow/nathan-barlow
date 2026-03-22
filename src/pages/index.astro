@@ -1,8 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/Button.astro";
 import SlideUp from "../components/SlideUp.astro";
 import Card from "../components/Card.astro";
+
+import headshotLight from "../assets/headshot.webp";
+import headshotDark from "../assets/headshot-dark.webp";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -22,18 +26,16 @@ import Card from "../components/Card.astro";
             </Button>
         </div>
         <figure class="headshot">
-            <!-- <img src="/src/assets/headshot-dark.webp" /> -->
-            <picture>
-                <source
-                    srcset="/src/assets/headshot-dark.webp"
-                    media="(prefers-color-scheme: dark)"
-                />
-
-                <img
-                    src="/src/assets/headshot.webp"
-                    alt="Nate Barlow Headshot"
-                />
-            </picture>
+            <Image
+                src={headshotLight}
+                alt="Nate Barlow Headshot"
+                class="light-only"
+            />
+            <Image
+                src={headshotDark}
+                alt="Nate Barlow Headshot"
+                class="dark-only"
+            />
         </figure>
     </section>
 
@@ -112,7 +114,7 @@ import Card from "../components/Card.astro";
             height: 100%;
             width: 100%;
             border-radius: 100%;
-            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
         }
     }
 </style>

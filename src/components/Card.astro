@@ -23,7 +23,7 @@ const { arrow = true } = Astro.props;
         border-radius: 0.375rem;
         corner-shape: squircle;
         border: 1px solid var(--color-gray-10);
-        background-color: var(--color-white);
+        background-color: var(--color-white-bg);
         // box-shadow: 0 0.5rem 1rem -0.25rem rgba(0, 0, 0, 0.05);
 
         > *:first-child {
@@ -48,11 +48,15 @@ const { arrow = true } = Astro.props;
             border-color var(--transition),
             transform 0.25s ease-out;
 
-        a.card-link::after {
-            content: "";
-            position: absolute;
-            inset: 0 0 0 0;
-            z-index: 1;
+        a.card-link {
+            outline: none;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0 0 0 0;
+                z-index: 1;
+            }
         }
 
         a:not(.card-link) {
@@ -60,10 +64,16 @@ const { arrow = true } = Astro.props;
             z-index: 2;
         }
 
-        &:has(a.card-link:hover) {
+        &:has(a.card-link:hover),
+        &:has(a.card-link:focus-within) {
             border-color: var(--color-primary);
             background-color: var(--color-primary-50);
-            backdrop-filter: blur(3) saturate(3);
+            backdrop-filter: blur(3) saturate(2);
+        }
+
+        &:has(a.card-link:focus-within) {
+            outline: 2px solid var(--color-primary-100);
+            outline-offset: 3px;
         }
 
         &:has(a.card-link:active) {

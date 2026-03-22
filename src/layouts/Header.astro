@@ -1,12 +1,13 @@
 ---
-
+import { Image } from "astro:assets";
+import Logo from "../assets/logo.png";
 ---
 
 <header>
     <a href="/" class="logo" title="Home">
         <figure>
-            <img
-                src="/src/assets/logo.png"
+            <Image
+                src={Logo}
                 alt="Logo with letters N B between code brackets"
             />
         </figure>

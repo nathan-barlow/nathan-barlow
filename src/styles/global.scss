@@ -1,8 +1,15 @@
 html {
+    // --primary-hue: 265;
+    --primary-hue: 150;
+
     --color-background: light-dark(#f1f5f9, #101010);
     --color-text: light-dark(#101010, #f1f5f9);
     --color-white: light-dark(#f6f9fc, #151515);
     --color-black: light-dark(#151515, #f6f9fc);
+    --color-white-bg: light-dark(
+        rgba(255, 255, 255, 0.5),
+        rgba(30, 30, 30, 0.75)
+    );
     --color-gray-5: light-dark(
         oklch(96.8% 0.007 247.896),
         oklch(10.8% 0.007 247.896)
@@ -24,16 +31,16 @@ html {
         oklch(80.9% 0.041 260.031)
     );
     --color-primary: light-dark(
-        oklch(38.129% 0.24601 264.225),
-        oklch(70.884% 0.07578 278.886)
+        oklch(38% 0.25 var(--primary-hue)),
+        oklch(80% 0.08 var(--primary-hue))
     );
     --color-primary-50: light-dark(
-        oklch(38.129% 0.24601 264.225 / 0.1),
-        oklch(70.884% 0.07578 278.886 / 0.1)
+        oklch(25% 0.25 var(--primary-hue) / 0.05),
+        oklch(70% 0.08 var(--primary-hue) / 0.1)
     );
     --color-primary-100: light-dark(
-        oklch(95.884% 0.07578 278.886),
-        oklch(21.44% 0.07482 272.87)
+        oklch(86% 0.08 var(--primary-hue)),
+        oklch(21% 0.08 var(--primary-hue))
     );
 
     --spacing-10: 0.25rem;
@@ -50,13 +57,32 @@ html {
     --transition-func: cubic-bezier(0.8, 0, 0.2, 1);
     --transition: var(--transition-duration) var(--transition-func);
 
-    box-sizing: border-box;
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (prefers-color-scheme: light) {
+    .dark-only {
+        display: none;
+    }
 }
 
 @media screen and (prefers-color-scheme: dark) {
     :root {
         color-scheme: dark;
     }
+
+    .light-only {
+        display: none;
+    }
+}
+
+::selection {
+    background-color: var(--color-primary);
+    color: var(--color-white);
 }
 
 body {
@@ -131,6 +157,20 @@ li {
 a {
     color: var(--color-primary);
     text-decoration: none;
+}
+
+main p a {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: left 95%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    transition: background-size var(--transition);
+
+    &:hover {
+        background-size: 0% 1px;
+        background-position: right 95%;
+        transition: background-size var(--transition);
+    }
 }
 
 section {
