@@ -55,7 +55,7 @@ const { title = "Nate Barlow" } = Astro.props;
     </body>
 </html>
 
-<style>
+<style lang="scss">
     :global(#pointer) {
         border-radius: 100%;
         opacity: 0.4;
@@ -70,6 +70,23 @@ const { title = "Nate Barlow" } = Astro.props;
         width: 25vw;
         background-color: var(--color-primary-100);
         filter: blur(68px);
+
+        &::after {
+            content: "";
+            display: block;
+            height: 100%;
+            width: 100%;
+            border-radius: inherit;
+            background-color: var(--color-primary);
+            transform: scale(0);
+            transition: transform var(--transition);
+        }
+    }
+
+    :global(.color-change #pointer) {
+        &::after {
+            transform: scale(1);
+        }
     }
 </style>
 

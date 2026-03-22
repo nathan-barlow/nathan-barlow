@@ -17,14 +17,16 @@ const { color = "currentColor", hoverColor = "currentColor" } = Astro.props;
     <path class="tip" d="M5 1l4 4-4 4"></path>
 </svg>
 
-<style define:vars={{ color, hoverColor }}>
+<style lang="scss" define:vars={{ color, hoverColor }}>
     .arrow {
         height: 1em;
         width: 1em;
         padding: 0.25em;
         flex-shrink: 0;
         stroke: var(--color);
-        transition: stroke var(--transition);
+        transition:
+            stroke var(--transition),
+            transform var(--transition);
 
         path {
             transition:
@@ -41,10 +43,10 @@ const { color = "currentColor", hoverColor = "currentColor" } = Astro.props;
         }
     }
 
-    :global(*:not(.card):hover),
-    :global(*:not(.card):focus-within),
+    :global(:where(a, button):not(.card):hover),
+    :global(:where(a, button):not(.card):focus-visible),
     :global(.card:has(.card-link:hover)),
-    :global(.card:has(.card-link:focus-within)) {
+    :global(.card:has(.card-link:focus-visible)) {
         > .arrow {
             stroke: var(--hoverColor);
 
@@ -55,6 +57,13 @@ const { color = "currentColor", hoverColor = "currentColor" } = Astro.props;
             path.tip {
                 transform: none;
             }
+        }
+    }
+
+    :global(a[target="_blank"]:not(.card):hover),
+    :global(a[target="_blank"]:not(.card):focus-visible) {
+        > .arrow {
+            transform: rotate(-45deg);
         }
     }
 </style>

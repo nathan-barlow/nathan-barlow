@@ -66,13 +66,13 @@ const Tag = tag as any;
         }
 
         &:has(a.card-link:hover),
-        &:has(a.card-link:focus-within) {
+        &:has(a.card-link:focus-visible) {
             border-color: var(--color-primary);
             background-color: var(--color-primary-50);
             backdrop-filter: blur(3) saturate(2);
         }
 
-        &:has(a.card-link:focus-within) {
+        &:has(a.card-link:focus-visible) {
             outline: 2px solid var(--color-primary-100);
             outline-offset: 3px;
         }

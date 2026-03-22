@@ -128,7 +128,7 @@
         }
 
         &:hover span::after,
-        &:focus-within span::after {
+        &:focus-visible span::after {
             transform: scale(1);
         }
 
@@ -177,9 +177,17 @@
         });
 
         hueButton?.addEventListener("click", () => {
+            document.body.classList.remove("color-change");
+
             const { hue = 150 } = theme.get();
             const newHue = hue + 20 > 360 ? 1 : hue + 20;
             theme.set({ hue: newHue });
+
+            document.body.classList.add("color-change");
+        });
+
+        hueButton?.addEventListener("mouseout", () => {
+            document.body.classList.remove("color-change");
         });
     });
 </script>

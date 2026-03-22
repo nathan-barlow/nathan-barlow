@@ -39,10 +39,10 @@ import { projects } from "../scripts/projects";
     </section>
 
     <section>
-        <SlideUp tag="h2" delay={0.5}>Projects</SlideUp>
+        <h2>Projects</h2>
         <Projects filters={{ limit: 3 }} />
         {
-            projects.count() === 1 && (
+            projects.count() > 3 && (
                 <Button
                     size="small"
                     href="/projects"

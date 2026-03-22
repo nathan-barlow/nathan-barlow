@@ -90,6 +90,7 @@ body {
     margin: 0;
     background-color: var(--color-background);
     color: var(--color-text);
+    // font-family: "Albert Sans", sans-serif;
     font-family: "Atkinson Hyperlegible Next", sans-serif;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -131,10 +132,12 @@ h1 {
 h2 {
     font-size: 1.25rem;
     font-weight: 600;
+    letter-spacing: -1%;
 }
 
 h3 {
     font-weight: 600;
+    letter-spacing: -1%;
 }
 
 h1,
@@ -198,7 +201,7 @@ footer,
             opacity var(--transition);
 
         &:hover,
-        &:focus-within {
+        &:focus-visible {
             color: var(--color-text);
         }
     }
@@ -207,9 +210,9 @@ footer,
 nav,
 .color-scheme-toggles {
     &:hover a:not(:hover),
-    &:focus-within a:not(:focus-within),
+    &:focus-visible a:not(:focus-visible),
     &:hover button:not(:hover),
-    &:focus-within button:not(:focus-within) {
+    &:focus-visible button:not(:focus-visible) {
         opacity: 0.5;
     }
 }

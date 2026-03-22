@@ -1,0 +1,75 @@
+---
+import Project from "../../layouts/Project.astro";
+
+export const metadata = {
+    title: "Share the Dream of Christmas",
+    description:
+        "Share the Dream Fox Cities is a local nonprofit organization that donates gifts and meals to families in need during the holiday season. For their main website, they required a simple yet informative platform that effectively communicates their nonprofit's mission and encourages site visitors to make donations. Additionally, they sought an invitation-only registration system to facilitate the sign-up process for low-income families interested in participating in the event.",
+    date: "June 2023",
+    order: 2,
+    type: "WordPress",
+    url: "https://christmas.sharethedreamwi.org/",
+    github: "https://github.com/nathan-barlow/christmas.sharethedreamwi.org",
+};
+---
+
+<Project metadata={metadata}>
+    <h2>Home Page Design</h2>
+    <p>
+        To create an engaging home page, I went beyond a static layout by
+        incorporating subtle animations that captivate the visitor. Through
+        experimentation with JavaScript, I implemented scroll events such as the
+        snow animation that rotates and follows the user's scrolling, as well as
+        an incrementing counter that highlights the significant impact of their
+        previous year's event. Additionally, considering the importance of
+        spreading their message and eliciting support through donations and
+        volunteering, I ensured that such actions were prominently featured on
+        the home page.
+    </p>
+
+    <h2>Registration System</h2>
+    <h3>The end of the Google Form</h3>
+    <p>
+        In the past, a basic Google Form (and a complex spreadsheet) were
+        utilized to track registrations. However, due to the absence of a
+        straightforward method for verifying the uniqueness and validity of
+        invite codes within the Google Form, we encountered challenges that
+        necessitated making phone calls to address flagged errors in the
+        spreadsheet, causing unnecessary headaches. Additionally, the Google
+        Form's limited customization options and poor user experience posed
+        further obstacles. For the 2023 event, I aimed to develop a system that
+        could validate invite codes prior to submission and thoroughly validate
+        user inputs. Furthermore, based on feedback from the 2022 event, it
+        became apparent that children would prefer to submit gift preferences
+        instead of receiving a “one-size-fits-all” gift for each age group.
+    </p>
+
+    <h2>A Tailored Solution</h2>
+    <p>
+        Taking these considerations into account, I set out to create an
+        improved solution. Leveraging my knowledge of SQL, JavaScript, and PHP
+        acquired at NWTC, I designed a more sophisticated form. The new form
+        employs a relational database to meticulously track registered families
+        and the individual details of each family member, including their names,
+        ages, and gift preferences. During the form's development, I expanded my
+        understanding of JavaScript and DOM manipulation, as well as learned and
+        implemented best practices for utilizing SQL in conjunction with PHP. I
+        also ensured the form's resilience against SQL injection and cross-site
+        scripting attacks. Consequently, the new form delivers a significantly
+        enhanced user experience while seamlessly aligning with the
+        organization's overall design.
+    </p>
+
+    <h2>Customized Backend</h2>
+    <p>
+        Creating the new form was just the beginning of the project. We needed
+        to provide administrators with a convenient means to generate new codes,
+        monitor data pertaining to registered families, manipulate the database
+        to add, edit, or remove families, and view the registered families.
+        Although a formidable undertaking, I methodically approached the task by
+        dividing it into manageable segments. Eventually, I successfully
+        developed a comprehensive dashboard that empowered our registration
+        administrators to perform all the necessary functions efficiently and
+        effortlessly.
+    </p>
+</Project>
