@@ -1,0 +1,41 @@
+---
+import { projects } from "../scripts/projects";
+import Card from "./Card.astro";
+
+const { project, showType = true } = Astro.props;
+---
+
+<Card tag="article">
+    {
+        showType && (
+            <a class="chip" href={"/type/" + projects.toSlug(project.type)}>
+                {project.type}
+            </a>
+        )
+    }
+    <h3 class="title">
+        <a href={project.url} class="card-link">
+            {project.title}
+        </a>
+    </h3>
+    <p class="description">{projects.trimText(project.description, 250)}</p>
+    <p class="date">{project.date}</p>
+</Card>
+
+<style>
+    .date {
+        opacity: 0.6;
+    }
+
+    .title {
+        margin-block: 0.25rem 0.5rem;
+    }
+
+    .description {
+        margin-top: 0;
+    }
+
+    .chip {
+        color: var(--color-primary);
+    }
+</style>

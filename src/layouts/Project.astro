@@ -1,0 +1,66 @@
+---
+import { projects } from "../scripts/projects";
+import Layout from "../layouts/Layout.astro";
+import SlideUp from "../components/SlideUp.astro";
+import Button from "../components/Button.astro";
+
+const { metadata } = Astro.props;
+const { title, description, type, url, github, content = true } = metadata;
+---
+
+<Layout>
+    <div>
+        <SlideUp delay={0.25}>
+            <a class="chip" href={"/type/" + projects.toSlug(type)}>
+                {type}
+            </a>
+        </SlideUp>
+        <h1 class="title">
+            <SlideUp class="title" parts={title} />
+        </h1>
+        <p>{description}</p>
+
+        {
+            (url || github) && (
+                <div class="flex">
+                    {url && (
+                        <Button
+                            size="small"
+                            href={url}
+                            variant="outline"
+                            arrow={true}
+                        >
+                            Visit Project
+                        </Button>
+                    )}
+                    {github && (
+                        <Button
+                            size="small"
+                            variant={url ? undefined : "outline"}
+                            arrow={!url}
+                            href={github}
+                        >
+                            View on GitHub
+                        </Button>
+                    )}
+                </div>
+            )
+        }
+
+        {content && (
+            <hr />
+            <slot />
+            <hr />
+        )}
+    </div>
+</Layout>
+
+<style>
+    .title {
+        margin-top: 0.25rem;
+    }
+
+    hr {
+        margin-top: 1rem;
+    }
+</style>

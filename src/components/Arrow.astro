@@ -41,10 +41,10 @@ const { color = "currentColor", hoverColor = "currentColor" } = Astro.props;
         }
     }
 
-    :global(*:hover),
-    :global(*:focus-within),
-    :global(.card-link:has(.card-link:hover)),
-    :global(.card-link:has(.card-link:focus-within)) {
+    :global(*:not(.card):hover),
+    :global(*:not(.card):focus-within),
+    :global(.card:has(.card-link:hover)),
+    :global(.card:has(.card-link:focus-within)) {
         > .arrow {
             stroke: var(--hoverColor);
 

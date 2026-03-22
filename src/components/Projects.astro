@@ -1,0 +1,17 @@
+---
+import { projects } from "../scripts/projects";
+import Project from "./Project.astro";
+
+const { filters, ...projectProps } = Astro.props;
+const displayProjects = filters ? projects.get(filters) : projects.all();
+---
+
+<ul class="grid list-style-none">
+    {
+        displayProjects.map((p: any) => (
+            <li>
+                <Project project={p} {...projectProps} />
+            </li>
+        ))
+    }
+</ul>

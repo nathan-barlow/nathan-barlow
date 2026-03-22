@@ -49,13 +49,19 @@ const Tag = tag as any;
     .slide-up__part {
         display: inline-block;
         opacity: 0;
-        transform: translateY(1em);
+
+        @media screen and (prefers-reduced-motion: no-preference) {
+            transform: translateY(1em);
+        }
     }
 
     @keyframes slide-up {
         from {
             opacity: 0;
-            transform: translateY(1em);
+
+            @media screen and (prefers-reduced-motion: no-preference) {
+                transform: translateY(1em);
+            }
         }
         to {
             opacity: 1;

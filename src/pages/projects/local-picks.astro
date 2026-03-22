@@ -1,0 +1,137 @@
+---
+import Project from "../../layouts/Project.astro";
+
+export const metadata = {
+    title: "Local Picks",
+    description:
+        "Inspired by growing up surrounded by farms and farmer's markets in Wisconsin, I sought out to create a resource that helps people find local products in their area. Local Picks is an online directory of farms, ranches, orchards, and more with advanced features like search with suggestions, ability to create, customize, and sponsor listings, and find listings on a Google Map.",
+    date: "October 2024",
+    order: 1,
+    type: "Laravel",
+    url: "https://localpicks.org",
+};
+---
+
+<Project metadata={metadata}>
+    <h2 class="wp-block-heading">What I Learned</h2>
+    <div
+        class="wp-block-group is-layout-grid wp-container-core-group-is-layout-add48beb wp-block-group-is-layout-grid"
+    >
+        <div class="wp-block-group learned-card laravel">
+            <div
+                class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+            >
+                <div class="wp-block-group">
+                    <div
+                        class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+                    >
+                        <p><strong>Laravel</strong></p>
+
+                        <p>
+                            ORM, authentication, form validation, route
+                            handling, MVC structure, PHP
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wp-block-group learned-card git">
+            <div
+                class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+            >
+                <div class="wp-block-group">
+                    <div
+                        class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+                    >
+                        <p><strong>Version Control</strong></p>
+
+                        <p>
+                            Git with GitHub, collaborating with another
+                            developer, branching
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wp-block-group learned-card map">
+            <div
+                class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+            >
+                <div class="wp-block-group">
+                    <div
+                        class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+                    >
+                        <p><strong>Google Maps API</strong></p>
+
+                        <p>
+                            JS and geocoding APIs to implement maps and
+                            geocoding location data
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wp-block-group learned-card ui">
+            <div
+                class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+            >
+                <div class="wp-block-group">
+                    <div
+                        class="wp-block-group__inner-container is-layout-constrained wp-block-group-is-layout-constrained"
+                    >
+                        <p><strong>UI and UX design</strong></p>
+
+                        <p>
+                            Designing easy to use and intuitive forms, pages,
+                            and controls.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="wp-block-heading">Overview</h2>
+    <p>
+        Having experience with WordPress and PHP development, I was intrigued by
+        the Laravel framework and eventually took an online course to learn
+        about it. I found its developer features very easy to use and
+        appreciated all of the built in features, like ORM, authentication, and
+        templating. After a couple practice projects, I decided to put my skills
+        to the test creating Local Picks, using online resources and
+        documentation to fill in any gaps. As a quick learner, I appreciated the
+        abundance of online information surrounding Laravel. It was easy to get
+        started, and as I ran into new use cases, there was always a solution
+        that integrated well.
+    </p>
+    <p>
+        Developing a completely custom web directory using an unfamiliar
+        framework was no small undertaking, but I was able to take it chunk by
+        chunk and add on features as I came up with ideas. I also got a friend
+        involved who’s learning computer science and learned how to collaborate
+        effectively using git. Together, we were able to make turn this idea
+        into a robust web app with impressive features.
+    </p>
+    <h2 class="wp-block-heading">Create A Listing Form</h2>
+    <p>
+        The listing creation form went through several iterations before I
+        settled on the final design. It was imperative that the form was simple
+        to use, yet have robust features available for farmers to use to
+        customize their listing and help it stand out. I broke it up into
+        several sections, including validation every step of the way and
+        features that make it quick and easy to fill out. For example, the form
+        identifies any products from the farm name and description and suggests
+        they be added in the “products” section later on.
+    </p>
+    <h2 class="wp-block-heading">Search Page</h2>
+    <p>
+        Next, it is very important that users are able to easily find and filter
+        through farms listed on our platform. This was a significant backend
+        task that Laravel’s ORM made very simple. I was able to incorporate
+        filters, search within a radius of a provided city or zip code, and
+        search suggestions that auto-populate based on farm names, products, and
+        tags in our database.
+    </p>
+</Project>

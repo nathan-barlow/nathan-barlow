@@ -3,13 +3,12 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/Button.astro";
 import SlideUp from "../components/SlideUp.astro";
-import Card from "../components/Card.astro";
+import Projects from "../components/Projects.astro";
 
 import headshotLight from "../assets/headshot.webp";
 import headshotDark from "../assets/headshot-dark.webp";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { projects } from "../scripts/projects";
 ---
 
 <Layout>
@@ -41,45 +40,20 @@ import headshotDark from "../assets/headshot-dark.webp";
 
     <section>
         <SlideUp tag="h2" delay={0.5}>Projects</SlideUp>
-
-        <div class="grid">
-            <Card>
-                <h3>
-                    <a href="#" class="card-link">Lorem Ipsum</a>
-                </h3>
-
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-            </Card>
-            <Card>
-                <h3>
-                    <a href="#" class="card-link">Lorem Ipsum</a>
-                </h3>
-
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-            </Card>
-            <Card>
-                <h3>
-                    <a href="#" class="card-link">Lorem Ipsum</a>
-                </h3>
-
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-            </Card>
-        </div>
+        <Projects filters={{ limit: 3 }} />
+        {
+            projects.count() === 1 && (
+                <Button
+                    size="small"
+                    href="/projects"
+                    arrow={true}
+                    variant="minimal"
+                    style={{ marginTop: "var(--spacing-20)" }}
+                >
+                    All Projects
+                </Button>
+            )
+        }
     </section>
 </Layout>
 
@@ -95,6 +69,7 @@ import headshotDark from "../assets/headshot-dark.webp";
 
             .headshot {
                 order: 1;
+                justify-self: end;
             }
         }
     }
@@ -106,7 +81,6 @@ import headshotDark from "../assets/headshot-dark.webp";
         padding: 0;
         line-height: 0;
         order: -1;
-        justify-self: end;
 
         img {
             aspect-ratio: 1 / 1;

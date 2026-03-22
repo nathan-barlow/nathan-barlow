@@ -1,0 +1,24 @@
+---
+import { projects } from "../../scripts/projects";
+import BaseLayout from "../../layouts/Layout.astro";
+import SlideUp from "../../components/SlideUp.astro";
+import Projects from "../../components/Projects.astro";
+
+export async function getStaticPaths() {
+    return projects.types().map((type: any) => ({
+        params: { type: projects.toSlug(type) },
+        props: { title: type },
+    }));
+}
+
+const { title } = Astro.props;
+---
+
+<BaseLayout title={title}>
+    <section>
+        <SlideUp tag="h1">
+            {title}
+        </SlideUp>
+        <Projects filters={{ type: title }} showType={false} />
+    </section>
+</BaseLayout>

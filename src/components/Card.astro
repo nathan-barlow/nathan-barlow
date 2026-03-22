@@ -1,10 +1,11 @@
 ---
 import Arrow from "./Arrow.astro";
 
-const { arrow = true } = Astro.props;
+const { tag = "div", arrow = true } = Astro.props;
+const Tag = tag as any;
 ---
 
-<article class="card">
+<Tag class="card">
     <slot />
     {
         arrow && (
@@ -14,7 +15,7 @@ const { arrow = true } = Astro.props;
             />
         )
     }
-</article>
+</Tag>
 
 <style lang="scss" is:global>
     .card {

@@ -1,13 +1,20 @@
 ---
 import Arrow from "./Arrow.astro";
 
-const { href, variant = "default", arrow = false } = Astro.props;
+const {
+    href,
+    variant = "default",
+    size = "default",
+    arrow = false,
+    ...otherProps
+} = Astro.props;
+
+const classNames = ["button", `button--${variant}`];
+if (arrow) classNames.push("button--arrow");
+if (size) classNames.push("button--" + size);
 ---
 
-<a
-    class={`button button--${variant}${arrow ? " button--arrow" : ""}`}
-    href={href}
->
+<a class={classNames.join(" ")} href={href} {...otherProps}>
     <slot />
     {arrow && <Arrow />}
 </a>
@@ -27,8 +34,13 @@ const { href, variant = "default", arrow = false } = Astro.props;
             opacity var(--transition),
             transform 0.25s ease-out;
 
+        &--small {
+            --padding: 0.625em;
+            font-size: 0.875rem;
+        }
+
         &--arrow {
-            padding-right: 0;
+            padding-right: 0.25rem;
         }
 
         &:not(.button--arrow):hover {
@@ -52,6 +64,7 @@ const { href, variant = "default", arrow = false } = Astro.props;
         }
 
         &--primary {
+            color: var(--color-text);
             background-color: var(--color-primary);
             border-color: var(--color-primary);
         }
