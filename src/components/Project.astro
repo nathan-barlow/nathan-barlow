@@ -6,13 +6,7 @@ const { project, showType = true } = Astro.props;
 ---
 
 <Card tag="article">
-    {
-        showType && (
-            <a class="chip" href={"/type/" + projects.toSlug(project.type)}>
-                {project.type}
-            </a>
-        )
-    }
+    {showType && <span class="tag">{project.type}</span>}
     <h3 class="title">
         <a href={project.url} class="card-link">
             {project.title}
@@ -35,7 +29,7 @@ const { project, showType = true } = Astro.props;
         margin-top: 0;
     }
 
-    .chip {
+    .tag {
         color: var(--color-primary);
     }
 </style>

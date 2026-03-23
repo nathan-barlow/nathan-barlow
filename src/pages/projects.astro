@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.astro";
 import SlideUp from "../components/SlideUp.astro";
-import Projects from "../components/Projects.astro";
+import ProjectsList from "../components/Projects.astro";
+import TagsNav from "../components/TagsNav.astro";
 ---
 
 <Layout title="Projects">
@@ -13,7 +13,8 @@ import Projects from "../components/Projects.astro";
             I've developed with various frameworks.
         </p>
 
-        <Projects />
+        <TagsNav />
+        <ProjectsList />
     </section>
 </Layout>
 

@@ -5,13 +5,21 @@ import SlideUp from "../components/SlideUp.astro";
 import Button from "../components/Button.astro";
 
 const { metadata } = Astro.props;
-const { title, description, type, url, github, content = true } = metadata;
+const {
+    title,
+    description,
+    type,
+    url,
+    github,
+    content = true,
+    tags = [],
+} = metadata;
 ---
 
 <Layout>
     <div>
         <SlideUp delay={0.25}>
-            <a class="chip" href={"/type/" + projects.toSlug(type)}>
+            <a class="tag" href={"/type/" + projects.toSlug(type)}>
                 {type}
             </a>
         </SlideUp>
@@ -48,17 +56,42 @@ const { title, description, type, url, github, content = true } = metadata;
             )
         }
 
-        {content && (
-            <hr />
-            <slot />
-            <hr />
-        )}
+        {
+            content && (
+                <>
+                    <hr />
+                    <slot />
+                </>
+            )
+        }
+
+        {
+            tags.length > 0 && (
+                <>
+                    <hr />
+                    <div class="tags flex">
+                        {tags.map((tag: any) => (
+                            <a
+                                class="chip"
+                                href={"/tag/" + projects.toSlug(tag)}
+                            >
+                                {tag}
+                            </a>
+                        ))}
+                    </div>
+                </>
+            )
+        }
     </div>
 </Layout>
 
 <style>
     .title {
         margin-top: 0.25rem;
+    }
+
+    .tags {
+        margin-block: 1rem;
     }
 
     hr {

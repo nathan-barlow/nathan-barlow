@@ -17,6 +17,12 @@ const types = () => {
     return [...new Set(types)];
 };
 
+const tags = () => {
+    const projects = all();
+    const tags = projects.flatMap((p) => p.tags ?? []);
+    return [...new Set(tags)];
+};
+
 const toSlug = (title) => {
     return title.replaceAll(" ", "-").toLowerCase();
 };
@@ -32,12 +38,15 @@ const trimText = (text, chars) => {
 export const projects = {
     all,
     types,
+    tags,
     get: (filters) => {
-        const { offset = 0, limit = -1, type } = filters;
+        const { offset = 0, limit = -1, type, tag } = filters;
         let projects = all();
 
         if (limit > 0 || offset) projects = projects.slice(offset, limit);
         if (type) projects = projects.filter((p) => p.type === type);
+        if (tag)
+            projects = projects.filter((p) => (p.tags || []).includes(tag));
 
         return projects;
     },

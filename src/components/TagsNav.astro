@@ -1,0 +1,39 @@
+---
+import { projects } from "../scripts/projects";
+import SlideUp from "./SlideUp.astro";
+
+const { active, animate = true } = Astro.props;
+
+const tags = projects.tags();
+---
+
+<nav id="tags-nav">
+    <ul class="list-style-none flex">
+        {
+            tags.map((tag: any, index) => {
+                const link = (
+                    <a
+                        class={"chip" + (tag === active ? " chip--active" : "")}
+                        href={"/tag/" + projects.toSlug(tag)}
+                    >
+                        {tag}
+                    </a>
+                );
+
+                return animate ? (
+                    <SlideUp tag="li" delay={index * 0.03 + 0.35}>
+                        {link}
+                    </SlideUp>
+                ) : (
+                    <li>{link}</li>
+                );
+            })
+        }
+    </ul>
+</nav>
+
+<style lang="scss">
+    nav {
+        margin-bottom: var(--spacing-50);
+    }
+</style>

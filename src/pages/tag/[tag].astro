@@ -3,11 +3,12 @@ import { projects } from "../../scripts/projects";
 import BaseLayout from "../../layouts/Layout.astro";
 import SlideUp from "../../components/SlideUp.astro";
 import Projects from "../../components/Projects.astro";
+import TagsNav from "../../components/TagsNav.astro";
 
 export async function getStaticPaths() {
-    return projects.types().map((type: any) => ({
-        params: { type: projects.toSlug(type) },
-        props: { title: type },
+    return projects.tags().map((tag: any) => ({
+        params: { tag: projects.toSlug(tag) },
+        props: { title: tag },
     }));
 }
 
@@ -17,6 +18,7 @@ const { title } = Astro.props;
 <BaseLayout title={title}>
     <section>
         <SlideUp tag="h1" parts={title} />
-        <Projects filters={{ type: title }} showType={false} />
+        <TagsNav active={title} animate={false} />
+        <Projects filters={{ tag: title }} />
     </section>
 </BaseLayout>
