@@ -57,6 +57,10 @@ const { title = "Nate Barlow" } = Astro.props;
 </html>
 
 <style lang="scss">
+    :global(#pointer) {
+        display: none;
+    }
+
     @media screen and (hover: hover) {
         :global(#pointer) {
             --size: 30vw;
