@@ -34,6 +34,10 @@ html {
         oklch(38% 0.25 var(--primary-hue)),
         oklch(80% 0.08 var(--primary-hue))
     );
+    --color-primary-50--opaque: light-dark(
+        oklch(85% 0.03 var(--primary-hue)),
+        oklch(35% 0.03 var(--primary-hue))
+    );
     --color-primary-50: light-dark(
         oklch(30% 0.3 var(--primary-hue) / 0.05),
         oklch(70% 0.08 var(--primary-hue) / 0.1)
@@ -329,8 +333,8 @@ footer {
         }
     }
 
-    @media screen and (hover: none) {
-        // @media screen and (max-width: 800px) {
+    // @media screen and (hover: none) {
+    @media screen and (max-width: 800px) {
         button,
         a {
             &:has(svg, .svg) {

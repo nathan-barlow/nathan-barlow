@@ -5,8 +5,7 @@ import Button from "../components/Button.astro";
 import SlideUp from "../components/SlideUp.astro";
 import Projects from "../components/Projects.astro";
 
-import headshotLight from "../assets/headshot.webp";
-import headshotDark from "../assets/headshot-dark.webp";
+import headshot from "../assets/headshot.webp";
 
 import { projects } from "../scripts/projects";
 ---
@@ -25,16 +24,7 @@ import { projects } from "../scripts/projects";
             </Button>
         </div>
         <figure class="headshot">
-            <Image
-                src={headshotLight}
-                alt="Nate Barlow Headshot"
-                class="light-only"
-            />
-            <Image
-                src={headshotDark}
-                alt="Nate Barlow Headshot"
-                class="dark-only"
-            />
+            <Image src={headshot} alt="Nate Barlow Headshot" />
         </figure>
     </section>
 
@@ -81,13 +71,19 @@ import { projects } from "../scripts/projects";
         padding: 0;
         line-height: 0;
         order: -1;
+        border-radius: 100%;
+        overflow: hidden;
+        background: linear-gradient(
+            var(--color-primary-50),
+            var(--color-primary-100)
+        );
+        border: 2px solid var(--color-primary-50--opaque);
 
         img {
             aspect-ratio: 1 / 1;
             object-fit: cover;
             height: 100%;
             width: 100%;
-            border-radius: 100%;
             box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
         }
     }

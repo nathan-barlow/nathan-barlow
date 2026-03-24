@@ -115,6 +115,7 @@ const { title = "Nate Barlow" } = Astro.props;
             const config = JSON.parse(saved);
             if (config.colorScheme) {
                 document.documentElement.style.colorScheme = config.colorScheme;
+                document.body.classList.toggle("theme-" + config.colorScheme);
             }
             if (config.hue) {
                 document.documentElement.style.setProperty(

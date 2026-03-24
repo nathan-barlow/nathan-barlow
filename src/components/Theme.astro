@@ -4,101 +4,111 @@ import ThemeLight from "./icons/ThemeLight.astro";
 import ThemeSystem from "./icons/ThemeSystem.astro";
 ---
 
-<div class="color-scheme-toggles">
+<div class="color-scheme">
     <button
-        class="color-scheme-toggle"
-        data-color-scheme="light"
-        title="Toggle light mode"
+        id="toggle_theme"
+        class="color-scheme__toggle"
         aria-label="Toggle light mode"
     >
-        <ThemeLight />
-    </button>
-    <button
-        class="color-scheme-toggle"
-        data-color-scheme="system"
-        title="Toggle system color scheme"
-    >
-        <ThemeSystem />
-    </button>
-    <button
-        class="color-scheme-toggle"
-        data-color-scheme="dark"
-        title="Toggle dark mode"
-    >
-        <ThemeDark />
+        <div class="svg"></div>
+        <ThemeLight class="color-scheme__toggle-icon" id="icon_light" />
+        <ThemeSystem class="color-scheme__toggle-icon" id="icon_system" />
+        <ThemeDark class="color-scheme__toggle-icon" id="icon_dark" />
     </button>
 
     <button
-        id="color-hue-toggle"
-        class="color-hue-toggle"
-        title="Random New Color"
-        aria-label="Random New Color"
+        id="toggle_hue"
+        class="color-scheme__toggle color-scheme__toggle-hue"
+        aria-label="Change Accent Color"
     >
-        <span class="svg"></span>
+        <div class="svg"></div>
     </button>
 </div>
 
 <style lang="scss">
-    .color-scheme-toggles {
+    .color-scheme {
         display: flex;
         align-items: center;
-    }
+        gap: 0.25rem;
 
-    .color-scheme-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        svg {
-            fill: currentColor;
-            height: 1.125em;
-            width: 1.125em;
-        }
-
-        &.active {
-            color: var(--color-text);
-        }
-    }
-
-    .color-hue-toggle {
-        span {
+        &__toggle {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 100%;
-            height: 1em;
-            width: 1em;
-            border: 2px solid var(--color-primary);
-            background-color: var(--color-primary-100);
+            padding: 0.25rem;
             position: relative;
+            overflow: hidden;
 
-            &::after {
-                content: "";
+            &-icon,
+            .svg {
+                height: 1.125em;
+                width: 1.125em;
+            }
+
+            &-icon {
+                fill: currentColor;
                 position: absolute;
-                border-radius: inherit;
-                height: 100%;
-                width: 100%;
-                background-color: var(--color-primary);
-                transform: scale(0);
+                transform: translateY(calc(-100% - 0.25rem));
                 transition: transform var(--transition);
 
-                &:where(.color-hue-toggle:hover *) {
-                    transform: scale(1);
+                &:where(body.theme-light #icon_light) {
+                    transform: none;
                 }
 
-                &:where(.color-hue-toggle:active *) {
-                    transform: scale(0);
+                &:where(body.theme-dark #icon_dark) {
+                    transform: none;
                 }
+
+                &:where(body:not([class*="theme-"]) #icon_system) {
+                    transform: none;
+                }
+            }
+
+            &.active {
+                color: var(--color-text);
             }
         }
 
-        &:hover span::after,
-        &:focus-visible span::after {
-            transform: scale(1);
-        }
+        &__toggle-hue {
+            .svg {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 100%;
+                height: 1em;
+                width: 1em;
+                border: 2px solid var(--color-primary);
+                background-color: var(--color-primary-100);
+                position: relative;
 
-        &:active span::after {
-            transform: scale(0);
+                &::after {
+                    content: "";
+                    position: absolute;
+                    border-radius: inherit;
+                    height: 100%;
+                    width: 100%;
+                    background-color: var(--color-primary);
+                    transform: scale(0);
+                    transition: transform var(--transition);
+
+                    &:where(.color-hue-toggle:hover *) {
+                        transform: scale(1);
+                    }
+
+                    &:where(.color-hue-toggle:active *) {
+                        transform: scale(0);
+                    }
+                }
+            }
+
+            &:hover .svg::after,
+            &:focus-visible .svg::after {
+                transform: scale(1);
+            }
+
+            &:active .svg::after {
+                transform: scale(0);
+            }
         }
     }
 </style>
@@ -107,39 +117,20 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
     import { theme } from "../scripts/theme";
 
     document.addEventListener("DOMContentLoaded", () => {
-        const buttons = document.querySelectorAll(".color-scheme-toggle");
-        const hueButton = document.getElementById("color-hue-toggle");
+        const themeToggle = document.getElementById("toggle_theme");
+        const themes = ["", "dark", "light"];
 
-        let { colorScheme } = theme.get();
-        if (!colorScheme) colorScheme = "system";
+        themeToggle?.addEventListener("click", () => {
+            const { colorScheme = "" } = theme.get();
+            const currentThemeIndex = themes.indexOf(colorScheme);
+            const newColorScheme = themes[currentThemeIndex + 1];
 
-        const setActiveButton = (scheme: string) => {
-            buttons.forEach((button: any) => {
-                button.dataset.colorScheme === scheme
-                    ? button.classList.add("active")
-                    : button.classList.remove("active");
-            });
-        };
+            console.log({ colorScheme, currentThemeIndex, newColorScheme });
 
-        setActiveButton(colorScheme);
-
-        buttons.forEach((button: any) => {
-            if (button.dataset.colorScheme === colorScheme) {
-                button.classList.add("active");
-            }
-
-            button.addEventListener("click", () => {
-                let colorScheme = button.dataset.colorScheme;
-
-                setActiveButton(colorScheme);
-
-                if (colorScheme === "system") {
-                    colorScheme = "";
-                }
-
-                theme.set({ colorScheme });
-            });
+            theme.set({ colorScheme: newColorScheme });
         });
+
+        const hueButton = document.getElementById("toggle_hue");
 
         hueButton?.addEventListener("click", () => {
             document.body.classList.remove("color-change");
