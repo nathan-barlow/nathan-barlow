@@ -46,6 +46,10 @@ html {
         oklch(30% 0.3 var(--primary-hue) / 0.15),
         oklch(70% 0.08 var(--primary-hue) / 0.25)
     );
+    --color-primary-150: light-dark(
+        oklch(30% 0.3 var(--primary-hue) / 0.5),
+        oklch(70% 0.08 var(--primary-hue) / 0.6)
+    );
 
     --spacing-10: 0.25rem;
     --spacing-20: 0.5rem;

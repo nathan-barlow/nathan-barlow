@@ -3,12 +3,12 @@ const STORAGE_KEY = "natebarlow_theme";
 const get = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
     let colorScheme = null;
-    let hue = null;
+    let hue = 150;
 
     try {
         const parsed = JSON.parse(saved);
         colorScheme = parsed?.colorScheme;
-        hue = parsed?.hue;
+        hue = parseInt(parsed?.hue);
     } catch (e) {} // do nothing
 
     return { colorScheme, hue };

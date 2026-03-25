@@ -13,7 +13,12 @@ import { projects } from "../scripts/projects";
 <Layout>
     <section class="home-hero">
         <div>
-            <SlideUp tag="h1" parts="Hello! I'm Nate Barlow" />
+            <h1>
+                <SlideUp>Hello!</SlideUp>
+                <SlideUp delay={1}>I'm</SlideUp>
+                <SlideUp delay={1.02}>Nate</SlideUp>
+                <SlideUp delay={1.04}>Barlow</SlideUp>
+            </h1>
             <p>
                 I design and develop responsive, accessible websites. I love
                 solving problems, exploring new technologies, and getting
@@ -24,7 +29,7 @@ import { projects } from "../scripts/projects";
             </Button>
         </div>
         <figure class="headshot">
-            <Image src={headshot} alt="Nate Barlow Headshot" />
+            <Image src={headshot} alt="Nate Barlow Headshot" loading="eager" />
         </figure>
     </section>
 

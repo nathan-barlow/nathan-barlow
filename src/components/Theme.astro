@@ -5,31 +5,201 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
 ---
 
 <div class="color-scheme">
-    <button
-        id="toggle_theme"
-        class="color-scheme__toggle"
-        aria-label="Toggle light mode"
-    >
-        <div class="svg"></div>
-        <ThemeLight class="color-scheme__toggle-icon" id="icon_light" />
-        <ThemeSystem class="color-scheme__toggle-icon" id="icon_system" />
-        <ThemeDark class="color-scheme__toggle-icon" id="icon_dark" />
-    </button>
+    <div class="color-scheme__container">
+        <button
+            id="toggle_theme"
+            class="color-scheme__toggle"
+            aria-label="Toggle theme"
+        >
+            <div class="svg"></div>
+            <ThemeLight class="color-scheme__toggle-icon" id="icon_light" />
+            <ThemeSystem class="color-scheme__toggle-icon" id="icon_system" />
+            <ThemeDark class="color-scheme__toggle-icon" id="icon_dark" />
+        </button>
 
-    <button
-        id="toggle_hue"
-        class="color-scheme__toggle color-scheme__toggle-hue"
-        aria-label="Change Accent Color"
-    >
-        <div class="svg"></div>
-    </button>
+        <div class="color-scheme__submenu">
+            <div class="color-scheme__submenu--theme">
+                <button
+                    aria-label="Toggle light mode"
+                    class="color-scheme__toggle"
+                    data-theme="light"
+                >
+                    <ThemeLight />
+                </button>
+                <button
+                    aria-label="Reset to system color scheme"
+                    class="color-scheme__toggle"
+                    data-theme="system"
+                >
+                    <ThemeSystem />
+                </button>
+                <button
+                    aria-label="Toggle dark mode"
+                    class="color-scheme__toggle"
+                    data-theme="dark"
+                >
+                    <ThemeDark />
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="color-scheme__container">
+        <button
+            id="toggle_hue"
+            class="color-scheme__toggle color-scheme__toggle--hue"
+            aria-label="Change Accent Color"
+        >
+            <div class="svg"></div>
+        </button>
+        <div class="color-scheme__submenu">
+            <input
+                min="0"
+                max="360"
+                step="5"
+                type="range"
+                name="color"
+                id="color_slider"
+            />
+        </div>
+    </div>
 </div>
 
 <style lang="scss">
+    #color_slider {
+        cursor: pointer;
+        writing-mode: vertical-lr;
+        height: 180px;
+        width: 1.75rem;
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+        transform-origin: bottom;
+        transition: transform var(--transition);
+        outline: none;
+        background: linear-gradient(
+            light-dark(oklch(60% 0.16 0), oklch(80% 0.08 0)),
+            light-dark(oklch(60% 0.16 60), oklch(80% 0.08 60)),
+            light-dark(oklch(60% 0.16 120), oklch(80% 0.08 120)),
+            light-dark(oklch(60% 0.16 180), oklch(80% 0.08 180)),
+            light-dark(oklch(60% 0.16 240), oklch(80% 0.08 240)),
+            light-dark(oklch(60% 0.16 300), oklch(80% 0.08 300)),
+            light-dark(oklch(60% 0.16 360), oklch(80% 0.08 360))
+        );
+
+        &:hover,
+        &:active,
+        &:focus-visible {
+            transform: scale(1.1);
+        }
+
+        &:active,
+        &:focus-visible {
+            --thumb-transform: scale(1.2);
+            --thumb-outline: 2px solid var(--color-primary-150);
+        }
+
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 1.75rem;
+            height: 10px;
+            background: white;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transform: var(--thumb-transform, none);
+            outline: var(--thumb-outline, none);
+            transition: transform var(--transition);
+        }
+
+        &::-moz-range-thumb {
+            appearance: none;
+            width: 1.75rem;
+            height: 10px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transform: var(--thumb-transform);
+            outline: var(--thumb-outline, none);
+            transition: transform var(--transition);
+        }
+    }
+
     .color-scheme {
         display: flex;
         align-items: center;
         gap: 0.25rem;
+
+        &__container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+
+            &:hover,
+            &:focus-within {
+                .color-scheme__submenu {
+                    opacity: 1;
+                    visibility: visible;
+                    pointer-events: auto;
+                    transform: none;
+                }
+            }
+        }
+
+        &__submenu {
+            position: absolute;
+            bottom: 100%;
+            padding-bottom: 0.5rem;
+            z-index: 3;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(4px);
+            transition:
+                transform var(--transition),
+                opacity var(--transition),
+                visibility var(--transition);
+
+            &--theme {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                background-color: var(--color-white);
+                padding: 0.25rem;
+                gap: 0.25rem;
+                border-radius: 2rem;
+                border: 1px solid var(--color-gray-10);
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+
+                button {
+                    transition: background-color var(--transition);
+                    border-radius: 100%;
+                }
+
+                :where(body.theme-light button[data-theme="light"]) {
+                    background-color: var(--color-gray-10);
+                }
+                :where(body.theme-dark button[data-theme="dark"]) {
+                    background-color: var(--color-gray-10);
+                }
+                :where(body:not([class*="theme"]) button[data-theme="system"]) {
+                    background-color: var(--color-gray-10);
+                }
+
+                &:hover {
+                    button:not(:hover) {
+                        opacity: 0.5;
+                    }
+                }
+            }
+        }
 
         &__toggle {
             display: flex;
@@ -64,50 +234,46 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
                 }
             }
 
-            &.active {
-                color: var(--color-text);
-            }
-        }
+            &--hue {
+                .svg {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 100%;
+                    height: 1em;
+                    width: 1em;
+                    border: 2px solid var(--color-primary);
+                    background-color: var(--color-primary-100);
+                    position: relative;
 
-        &__toggle-hue {
-            .svg {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 100%;
-                height: 1em;
-                width: 1em;
-                border: 2px solid var(--color-primary);
-                background-color: var(--color-primary-100);
-                position: relative;
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    border-radius: inherit;
-                    height: 100%;
-                    width: 100%;
-                    background-color: var(--color-primary);
-                    transform: scale(0);
-                    transition: transform var(--transition);
-
-                    &:where(.color-hue-toggle:hover *) {
-                        transform: scale(1);
-                    }
-
-                    &:where(.color-hue-toggle:active *) {
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        border-radius: inherit;
+                        height: 100%;
+                        width: 100%;
+                        background-color: var(--color-primary);
                         transform: scale(0);
+                        transition: transform var(--transition);
+
+                        &:where(.color-hue-toggle:hover *) {
+                            transform: scale(1);
+                        }
+
+                        &:where(.color-hue-toggle:active *) {
+                            transform: scale(0);
+                        }
                     }
                 }
-            }
 
-            &:hover .svg::after,
-            &:focus-visible .svg::after {
-                transform: scale(1);
-            }
+                &:hover .svg::after,
+                &:focus-visible .svg::after {
+                    transform: scale(1);
+                }
 
-            &:active .svg::after {
-                transform: scale(0);
+                &:active .svg::after {
+                    transform: scale(0);
+                }
             }
         }
     }
@@ -118,6 +284,9 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
 
     document.addEventListener("DOMContentLoaded", () => {
         const themeToggle = document.getElementById("toggle_theme");
+        const themeToggles = document.querySelectorAll(
+            ".color-scheme__toggle[data-theme]",
+        );
         const themes = ["", "dark", "light"];
 
         themeToggle?.addEventListener("click", () => {
@@ -125,12 +294,26 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             const currentThemeIndex = themes.indexOf(colorScheme);
             const newColorScheme = themes[currentThemeIndex + 1];
 
-            console.log({ colorScheme, currentThemeIndex, newColorScheme });
-
             theme.set({ colorScheme: newColorScheme });
         });
 
-        const hueButton = document.getElementById("toggle_hue");
+        themeToggles.forEach((toggle: any) => {
+            toggle?.addEventListener("click", () => {
+                let colorScheme = toggle.dataset.theme;
+                if (colorScheme === "system") {
+                    colorScheme = "";
+                }
+
+                theme.set({ colorScheme });
+            });
+        });
+
+        const hueButton = document.getElementById(
+            "toggle_hue",
+        ) as HTMLButtonElement;
+        const hueSlider = document.getElementById(
+            "color_slider",
+        ) as HTMLInputElement;
 
         hueButton?.addEventListener("click", () => {
             document.body.classList.remove("color-change");
@@ -138,6 +321,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             const { hue = 150 } = theme.get();
             const newHue = hue + 20 > 360 ? 1 : hue + 20;
             theme.set({ hue: newHue });
+            hueSlider.value = newHue.toString();
 
             document.body.classList.add("color-change");
         });
@@ -145,5 +329,13 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
         hueButton?.addEventListener("mouseout", () => {
             document.body.classList.remove("color-change");
         });
+
+        if (hueSlider) {
+            hueSlider.value = (theme.get().hue ?? 150).toString();
+
+            hueSlider.addEventListener("input", (e: any) => {
+                theme.set({ hue: parseInt(e.target?.value ?? 1) });
+            });
+        }
     });
 </script>
