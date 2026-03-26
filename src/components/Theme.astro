@@ -44,7 +44,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
         </div>
     </div>
 
-    <div class="color-scheme__container" data-press-duration="0">
+    <div class="color-scheme__container" data-press-duration="250">
         <button
             id="toggle_hue"
             class="color-scheme__toggle color-scheme__toggle--hue"
@@ -304,10 +304,15 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
     import { theme } from "../scripts/theme";
     import { WebHaptics } from "web-haptics";
 
-    const haptics = new WebHaptics();
-    const tap = (duration: number = 50) => {
-        console.log("tapped");
-        haptics.trigger([{ duration: 25 }], { intensity: 0.7 });
+    const haptics = new WebHaptics({ debug: true });
+    let hapticLock = false;
+    const tap = (intensity: number = 0.5) => {
+        hapticLock = true;
+        haptics.trigger([{ duration: 25 }], { intensity });
+
+        setTimeout(() => {
+            hapticLock = false;
+        }, 100);
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -322,10 +327,10 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
                 if (e.button !== 0) return;
 
                 isLongPress = false;
-                timer = window.setTimeout(() => {
+                timer = setTimeout(() => {
                     isLongPress = true;
-                    tap();
                     container.classList.add("open");
+                    tap(0.9);
                 }, duration);
             };
 
@@ -363,6 +368,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
 
             // Close when clicking outside
             document.addEventListener("click", (e) => {
+                if (hapticLock) return;
                 if (!container.contains(e.target as Node)) {
                     container.classList.remove("open");
                 }
@@ -385,7 +391,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             const newColorScheme =
                 themes[(currentThemeIndex + 1) % themes.length];
 
-            tap(50);
+            tap();
             theme.set({ colorScheme: newColorScheme });
         });
 
@@ -397,6 +403,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
                 }
 
                 theme.set({ colorScheme });
+                tap();
             });
         });
 
@@ -415,7 +422,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             theme.set({ hue: newHue });
             hueSlider.value = newHue.toString();
 
-            tap(50);
+            tap();
             document.body.classList.add("color-change");
         });
 
