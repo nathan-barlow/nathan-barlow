@@ -304,7 +304,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
     import { theme } from "../scripts/theme";
     import { WebHaptics } from "web-haptics";
 
-    const haptics = new WebHaptics({ debug: false });
+    const haptics = new WebHaptics({ debug: true });
     let hapticLock = false;
     const tap = (intensity: number = 0.5) => {
         hapticLock = true;
@@ -312,7 +312,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
 
         setTimeout(() => {
             hapticLock = false;
-        }, 1000);
+        }, 100);
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -330,7 +330,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
                 timer = setTimeout(() => {
                     isLongPress = true;
                     container.classList.add("open");
-                    tap(0.9);
+                    tap();
                 }, duration);
             };
 
@@ -391,7 +391,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             const newColorScheme =
                 themes[(currentThemeIndex + 1) % themes.length];
 
-            // tap();
+            tap();
             theme.set({ colorScheme: newColorScheme });
         });
 
@@ -403,7 +403,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
                 }
 
                 theme.set({ colorScheme });
-                // tap();
+                tap();
             });
         });
 
@@ -422,7 +422,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             theme.set({ hue: newHue });
             hueSlider.value = newHue.toString();
 
-            // tap();
+            tap();
             document.body.classList.add("color-change");
         });
 
