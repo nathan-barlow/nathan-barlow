@@ -337,8 +337,8 @@ footer {
         }
     }
 
-    // @media screen and (hover: none) {
-    @media screen and (max-width: 800px) {
+    @media screen and (hover: none) {
+        // @media screen and (max-width: 800px) { for debugging
         button,
         a {
             &:has(svg, .svg) {
@@ -356,6 +356,10 @@ footer {
             .svg {
                 font-size: 1.5rem;
             }
+        }
+
+        .color-scheme.color-scheme {
+            gap: 0.5rem;
         }
 
         .social-links {
