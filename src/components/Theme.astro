@@ -130,6 +130,8 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
         display: flex;
         align-items: center;
         gap: 0.25em;
+        user-select: none;
+        -webkit-user-select: none;
 
         &__container {
             display: flex;
@@ -137,7 +139,6 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             justify-content: center;
             flex-direction: column;
             position: relative;
-            user-select: none;
 
             &:focus-within,
             &.open {
@@ -306,7 +307,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
     const haptics = new WebHaptics();
     const tap = (duration: number = 50) => {
         console.log("tapped");
-        haptics.trigger();
+        haptics.trigger([{ duration: 25 }], { intensity: 0.7 });
     };
 
     document.addEventListener("DOMContentLoaded", () => {
