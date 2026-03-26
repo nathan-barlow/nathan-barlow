@@ -44,6 +44,7 @@ const Tag = tag as any;
     }
 
     .card:has(a.card-link) {
+        backdrop-filter: blur(3) saturate(2) hue-rotate(180deg);
         transition:
             background-color var(--transition),
             border-color var(--transition),
@@ -69,7 +70,6 @@ const Tag = tag as any;
         &:has(a.card-link:focus-visible) {
             border-color: var(--color-primary-100);
             background-color: var(--color-primary-50);
-            backdrop-filter: blur(3) saturate(2);
         }
 
         &:has(a.card-link:focus-visible) {

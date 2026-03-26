@@ -5,7 +5,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
 ---
 
 <div class="color-scheme">
-    <div class="color-scheme__container">
+    <div class="color-scheme__container" data-press-duration="500">
         <button
             id="toggle_theme"
             class="color-scheme__toggle"
@@ -44,7 +44,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
         </div>
     </div>
 
-    <div class="color-scheme__container">
+    <div class="color-scheme__container" data-press-duration="0">
         <button
             id="toggle_hue"
             class="color-scheme__toggle color-scheme__toggle--hue"
@@ -138,7 +138,8 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             flex-direction: column;
             position: relative;
 
-            &:focus-within {
+            &:focus-within,
+            &.open {
                 .color-scheme__submenu {
                     opacity: 1;
                     visibility: visible;
@@ -150,6 +151,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             @media screen and (hover: hover) {
                 &:hover {
                     .color-scheme__submenu {
+                        transition-delay: 1s;
                         opacity: 1;
                         visibility: visible;
                         pointer-events: auto;
@@ -225,6 +227,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             padding: 0.25em;
             position: relative;
             overflow: hidden;
+            user-select: none;
 
             &-icon,
             .svg {
@@ -299,6 +302,72 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
 <script>
     import { theme } from "../scripts/theme";
 
+    const haptic = (duration: number = 50) => {
+        if ("vibrate" in navigator) navigator.vibrate(duration);
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const containers = document.querySelectorAll("[data-press-duration]");
+        const handlePress = (container: any) => {
+            const duration = parseInt(container.dataset.pressDuration);
+            let timer: number | null = null;
+            let isLongPress = false;
+
+            const startTimer = (e: PointerEvent) => {
+                // Only trigger for primary button (touch/left-click)
+                if (e.button !== 0) return;
+
+                isLongPress = false;
+                timer = window.setTimeout(() => {
+                    isLongPress = true;
+                    container.classList.add("open");
+                    haptic();
+                }, duration);
+            };
+
+            const clearTimer = () => {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+            };
+
+            // 1. Long press detection
+            container.addEventListener(
+                "pointerdown",
+                startTimer as EventListener,
+            );
+
+            document.addEventListener("pointerup", clearTimer);
+            container.addEventListener("pointermove", (e: any) => {
+                // If the user moves their finger significantly, cancel the long press
+                if (Math.abs(e.movementX) > 10 || Math.abs(e.movementY) > 10)
+                    clearTimer();
+            });
+
+            // 2. Prevent the standard click if it was a long press
+            container.querySelector(".color-scheme__toggle")?.addEventListener(
+                "click",
+                (e: any) => {
+                    if (isLongPress) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                },
+                true,
+            );
+
+            // Close when clicking outside
+            document.addEventListener("click", (e) => {
+                if (!container.contains(e.target as Node)) {
+                    container.classList.remove("open");
+                }
+            });
+        };
+
+        containers.forEach(handlePress);
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
         const themeToggle = document.getElementById("toggle_theme");
         const themeToggles = document.querySelectorAll(
@@ -312,7 +381,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             const newColorScheme =
                 themes[(currentThemeIndex + 1) % themes.length];
 
-            navigator.vibrate(50);
+            haptic(50);
             theme.set({ colorScheme: newColorScheme });
         });
 
@@ -342,7 +411,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             theme.set({ hue: newHue });
             hueSlider.value = newHue.toString();
 
-            navigator.vibrate(50);
+            haptic(50);
             document.body.classList.add("color-change");
         });
 
