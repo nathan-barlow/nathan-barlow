@@ -149,7 +149,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             }
 
             @media screen and (hover: hover) {
-                &:hover {
+                &:hover:not(.open) {
                     .color-scheme__submenu {
                         transition-delay: 1s;
                         opacity: 1;
@@ -301,9 +301,12 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
 
 <script>
     import { theme } from "../scripts/theme";
+    import { WebHaptics } from "web-haptics";
 
-    const haptic = (duration: number = 50) => {
-        if ("vibrate" in navigator) navigator.vibrate(duration);
+    const haptics = new WebHaptics();
+    const tap = (duration: number = 50) => {
+        console.log("tapped");
+        haptics.trigger();
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -320,8 +323,8 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
                 isLongPress = false;
                 timer = window.setTimeout(() => {
                     isLongPress = true;
+                    tap();
                     container.classList.add("open");
-                    haptic();
                 }, duration);
             };
 
@@ -381,7 +384,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             const newColorScheme =
                 themes[(currentThemeIndex + 1) % themes.length];
 
-            haptic(50);
+            tap(50);
             theme.set({ colorScheme: newColorScheme });
         });
 
@@ -411,7 +414,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
             theme.set({ hue: newHue });
             hueSlider.value = newHue.toString();
 
-            haptic(50);
+            tap(50);
             document.body.classList.add("color-change");
         });
 
