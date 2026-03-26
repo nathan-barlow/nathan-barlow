@@ -74,24 +74,26 @@ const Tag = tag as any;
 </style>
 
 <script>
-    const observerOptions = {
-        threshold: 0.25, // Trigger when 25% of the element is visible
-    };
+    document.addEventListener("astro:page-load", () => {
+        const observerOptions = {
+            threshold: 0.25, // Trigger when 25% of the element is visible
+        };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
 
-                setTimeout(() => {
-                    entry.target.classList.add("animation-over");
-                }, 2000);
-            }
-        });
-    }, observerOptions);
+                    setTimeout(() => {
+                        entry.target.classList.add("animation-over");
+                    }, 2000);
+                }
+            });
+        }, observerOptions);
 
-    // Grab all elements with the 'js-observe' class
-    const targets = document.querySelectorAll(".slide-up");
-    targets.forEach((target) => observer.observe(target));
+        // Grab all elements with the 'js-observe' class
+        const targets = document.querySelectorAll(".slide-up");
+        targets.forEach((target) => observer.observe(target));
+    });
 </script>
