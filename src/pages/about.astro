@@ -32,39 +32,3 @@ import SlideUp from "../components/SlideUp.astro";
         </p>
     </section>
 </Layout>
-
-<style>
-    .home-hero {
-        display: grid;
-        grid-template-columns: 1fr;
-        align-items: center;
-        gap: var(--spacing-40);
-
-        @media screen and (min-width: 600px) {
-            grid-template-columns: 2fr 1fr;
-
-            .headshot {
-                order: 1;
-            }
-        }
-    }
-
-    .headshot {
-        width: 100%;
-        max-width: 175px;
-        margin: 0;
-        padding: 0;
-        line-height: 0;
-        order: -1;
-        justify-self: end;
-
-        img {
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            height: 100%;
-            width: 100%;
-            border-radius: 100%;
-            overflow: hidden;
-        }
-    }
-</style>
