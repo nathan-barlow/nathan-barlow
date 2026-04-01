@@ -1,5 +1,6 @@
 ---
 import Project from "../../layouts/Project.astro";
+import WordPartyGameImage from "../../assets/projects/word-party-game.webp";
 
 export const metadata = {
     title: "Word Party Game",
@@ -11,7 +12,10 @@ export const metadata = {
     tags: ["Web App", "JavaScript", "Web Audio API"],
     url: "https://nathan-barlow.github.io/wordpartygame/",
     github: "https://github.com/nathan-barlow/wordpartygame",
-    content: false,
+    image: {
+        src: WordPartyGameImage,
+        alt: "",
+    },
 };
 ---
 

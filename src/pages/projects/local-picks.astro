@@ -1,5 +1,6 @@
 ---
 import Project from "../../layouts/Project.astro";
+import LocalPicksImage from "../../assets/projects/local-picks.jpg";
 
 export const metadata = {
     title: "Local Picks",
@@ -8,8 +9,12 @@ export const metadata = {
     date: "October 2024",
     order: 1,
     type: "Laravel",
-    tags: ["Web App", "Custom Design", "Google Maps API"],
+    tags: ["Web App", "Google Maps API", "Web Design", "JavaScript"],
     url: "https://localpicks.org",
+    image: {
+        src: LocalPicksImage,
+        alt: "",
+    },
 };
 ---
 

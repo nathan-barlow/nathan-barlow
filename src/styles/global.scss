@@ -163,7 +163,8 @@ p {
 
 p,
 li,
-button {
+button,
+blockquote {
     line-height: 1.5;
 }
 
@@ -365,5 +366,22 @@ footer {
         .social-links {
             gap: 1.25rem;
         }
+    }
+}
+
+blockquote {
+    margin: var(--spacing-30) 0;
+    display: flex;
+    gap: 0.75rem;
+    font-style: italic;
+
+    &::before {
+        color: var(--color-primary);
+        content: "“";
+        display: block;
+        font-size: 4rem;
+        line-height: 0.5;
+        top: 0.5rem;
+        position: relative;
     }
 }

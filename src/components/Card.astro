@@ -83,10 +83,15 @@ const Tag = tag as any;
         }
     }
 
-    ul:has(a.card-link:hover),
-    ul:has(a.card-link:focus-visible) {
-        .card:not(:has(a.card-link:hover), :has(a.card-link:focus-visible)) {
-            opacity: 0.6;
+    @media screen and (hover: hover) {
+        ul:has(a.card-link:hover),
+        ul:has(a.card-link:focus-visible) {
+            .card:not(
+                :has(a.card-link:hover),
+                :has(a.card-link:focus-visible)
+            ) {
+                opacity: 0.6;
+            }
         }
     }
 
