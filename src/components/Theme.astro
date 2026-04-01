@@ -315,7 +315,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
         }, 100);
     };
 
-    document.addEventListener("astro:page-load", () => {
+    document.addEventListener("DOMContentLoaded", () => {
         const containers = document.querySelectorAll("[data-press-duration]");
         const handlePress = (container: any) => {
             const duration = parseInt(container.dataset.pressDuration);
@@ -378,7 +378,7 @@ import ThemeSystem from "./icons/ThemeSystem.astro";
         containers.forEach(handlePress);
     });
 
-    document.addEventListener("astro:page-load", () => {
+    document.addEventListener("DOMContentLoaded", () => {
         const themeToggle = document.getElementById("toggle_theme");
         const themeToggles = document.querySelectorAll(
             ".color-scheme__toggle[data-theme]",

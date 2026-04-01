@@ -35,19 +35,19 @@ html {
         oklch(80% 0.08 var(--primary-hue))
     );
     --color-primary-50--opaque: light-dark(
-        oklch(85% 0.03 var(--primary-hue)),
+        oklch(90% 0.02 var(--primary-hue)),
         oklch(35% 0.03 var(--primary-hue))
     );
     --color-primary-50: light-dark(
-        oklch(30% 0.4 var(--primary-hue) / 0.05),
+        oklch(30% 0.2 var(--primary-hue) / 0.05),
         oklch(70% 0.08 var(--primary-hue) / 0.1)
     );
     --color-primary-100: light-dark(
-        oklch(30% 0.4 var(--primary-hue) / 0.15),
+        oklch(30% 0.2 var(--primary-hue) / 0.15),
         oklch(70% 0.08 var(--primary-hue) / 0.25)
     );
     --color-primary-150: light-dark(
-        oklch(30% 0.4 var(--primary-hue) / 0.5),
+        oklch(30% 0.2 var(--primary-hue) / 0.5),
         oklch(70% 0.08 var(--primary-hue) / 0.6)
     );
 

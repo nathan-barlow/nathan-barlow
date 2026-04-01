@@ -5,7 +5,6 @@ import Footer from "./Footer.astro";
 
 const { title } = Astro.props;
 const pageTitle = title ? title + " | Nate Barlow" : "Nate Barlow";
-import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -43,16 +42,14 @@ import { ClientRouter } from "astro:transitions";
             rel="stylesheet"
         />
 
-        <ClientRouter />
-
         <meta name="generator" content={Astro.generator} />
 
         <title>{pageTitle}</title>
     </head>
     <body>
-        <Header transition:persist />
+        <Header />
 
-        <main transition:animate="fade">
+        <main>
             <slot />
         </main>
 
@@ -111,33 +108,28 @@ import { ClientRouter } from "astro:transitions";
 </style>
 
 <script is:inline>
-    document.addEventListener("astro:page-load", () => {
-        const STORAGE_KEY = "natebarlow_theme";
-        const saved = localStorage.getItem(STORAGE_KEY);
+    const STORAGE_KEY = "natebarlow_theme";
+    const saved = localStorage.getItem(STORAGE_KEY);
 
-        if (saved) {
-            try {
-                const config = JSON.parse(saved);
-                if (config.colorScheme) {
-                    document.documentElement.style.colorScheme =
-                        config.colorScheme;
-                    document.body.classList.toggle(
-                        "theme-" + config.colorScheme,
-                    );
-                }
-                if (config.hue) {
-                    document.documentElement.style.setProperty(
-                        "--primary-hue",
-                        config.hue,
-                    );
-                }
-            } catch (e) {}
-        }
-    });
+    if (saved) {
+        try {
+            const config = JSON.parse(saved);
+            if (config.colorScheme) {
+                document.documentElement.style.colorScheme = config.colorScheme;
+                document.body.classList.toggle("theme-" + config.colorScheme);
+            }
+            if (config.hue) {
+                document.documentElement.style.setProperty(
+                    "--primary-hue",
+                    config.hue,
+                );
+            }
+        } catch (e) {}
+    }
 </script>
 
 <script>
-    document.addEventListener("astro:page-load", () => {
+    document.addEventListener("DOMContentLoaded", () => {
         document.body.insertAdjacentHTML(
             "afterbegin",
             "<div id='pointer'></div>",

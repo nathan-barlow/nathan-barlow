@@ -25,7 +25,7 @@ const Tag = tag as any;
         corner-shape: squircle;
         border: 1px solid var(--color-gray-10);
         background-color: var(--color-white-bg);
-        // box-shadow: 0 0.5rem 1rem -0.25rem rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0.5rem 1rem -0.25rem rgba(0, 0, 0, 0.05);
 
         > *:first-child {
             margin-top: 0;
@@ -44,8 +44,9 @@ const Tag = tag as any;
     }
 
     .card:has(a.card-link) {
-        backdrop-filter: blur(3) saturate(2) hue-rotate(180deg);
+        backdrop-filter: blur(3);
         transition:
+            opacity var(--transition),
             background-color var(--transition),
             border-color var(--transition),
             transform 0.25s ease-out;
@@ -79,6 +80,13 @@ const Tag = tag as any;
 
         &:has(a.card-link:active) {
             transform: scale(0.99);
+        }
+    }
+
+    ul:has(a.card-link:hover),
+    ul:has(a.card-link:focus-visible) {
+        .card:not(:has(a.card-link:hover), :has(a.card-link:focus-visible)) {
+            opacity: 0.6;
         }
     }
 

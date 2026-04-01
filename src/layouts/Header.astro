@@ -1,17 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import Logo from "../assets/logo.png";
+import Logo from "../components/icons/Logo.astro";
 ---
 
 <header>
-    <a href="/" class="logo" title="Home">
-        <figure>
-            <Image
-                src={Logo}
-                alt="Logo with letters N B between code brackets"
-                loading="eager"
-            />
-        </figure>
+    <a href="/" class="logo" aria-label="Home">
+        <Logo />
     </a>
 
     <nav class="main-nav">
@@ -29,16 +23,25 @@ import Logo from "../assets/logo.png";
     }
 
     .logo {
-        figure {
-            padding: 0;
-            margin: 0;
-            line-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 52px;
+        width: 52px;
+        padding: 0.125rem;
+        border-radius: 0.5rem;
+        corner-shape: squircle;
+        background-color: var(--color-primary-50);
+        border: 1px solid var(--color-primary-50);
+        transition: background-color var(--transition);
+
+        &:hover,
+        &:focus-visible {
+            background-color: var(--color-primary-100);
         }
 
-        img {
-            height: 100%;
-            width: 50px;
-            object-fit: cover;
+        :global(svg) {
+            fill: var(--color-primary);
         }
     }
 </style>

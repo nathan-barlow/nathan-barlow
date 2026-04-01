@@ -58,9 +58,11 @@ import { projects } from "../scripts/projects";
         grid-template-columns: 1fr;
         align-items: center;
         gap: var(--spacing-40);
+        padding-block: var(--spacing-30);
 
         @media screen and (min-width: 600px) {
             grid-template-columns: 2fr 1fr;
+            padding-block: 0;
 
             .headshot {
                 order: 1;
